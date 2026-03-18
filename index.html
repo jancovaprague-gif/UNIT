@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="cs">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>UNIT spol. s r.o.</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --navy: #1a2e4a;
+      --blue: #2563a8;
+      --light-blue: #e8f0fb;
+      --accent: #3a8fc4;
+      --text: #222;
+      --muted: #555;
+      --white: #fff;
+      --border: #d0dbe8;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      color: var(--text);
+      background: var(--white);
+    }
+
+    /* ── NAVIGATION ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      background: var(--navy);
+      box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+    }
+
+    .nav-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 24px;
+      height: 62px;
+    }
+
+    .nav-logo {
+      color: var(--white);
+      font-size: 1.25rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      text-decoration: none;
+      white-space: nowrap;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .nav-logo img {
+      height: 52px;
+      width: auto;
+      filter: brightness(0) invert(1);
+      flex-shrink: 0;
+    }
+
+    .nav-links {
+      list-style: none;
+      display: flex;
+      gap: 4px;
+      flex-wrap: wrap;
+    }
+
+    .nav-links a {
+      color: rgba(255,255,255,0.85);
+      text-decoration: none;
+      font-size: 0.88rem;
+      padding: 6px 10px;
+      border-radius: 4px;
+      transition: background 0.2s, color 0.2s;
+    }
+
+    .nav-links a:hover {
+      background: rgba(255,255,255,0.12);
+      color: var(--white);
+    }
+
+    /* ── HERO ── */
+    .hero {
+      margin-top: 62px;
+      background: linear-gradient(135deg, var(--navy) 0%, #1e4070 60%, var(--blue) 100%);
+      color: var(--white);
+      text-align: center;
+      padding: 80px 24px 72px;
+    }
+
+    .hero h1 {
+      font-size: 2.6rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      margin-bottom: 14px;
+    }
+
+    .hero p {
+      font-size: 1.12rem;
+      color: rgba(255,255,255,0.82);
+      max-width: 640px;
+      margin: 0 auto;
+    }
+
+    /* ── SECTIONS ── */
+    section {
+      scroll-margin-top: 70px;
+    }
+
+    .section-inner {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 64px 24px;
+    }
+
+    section:nth-child(even) .section-inner {
+      /* alternating handled per section below */
+    }
+
+    .section-alt {
+      background: var(--light-blue);
+    }
+
+    h2 {
+      font-size: 1.75rem;
+      color: var(--navy);
+      margin-bottom: 28px;
+      padding-bottom: 12px;
+      border-bottom: 3px solid var(--accent);
+      display: inline-block;
+    }
+
+    p + p { margin-top: 14px; }
+
+    ul {
+      margin: 16px 0 16px 0;
+      padding-left: 0;
+      list-style: none;
+    }
+
+    ul li {
+      padding: 6px 0 6px 24px;
+      position: relative;
+      color: var(--muted);
+    }
+
+    ul li::before {
+      content: '▸';
+      color: var(--accent);
+      position: absolute;
+      left: 0;
+      font-size: 0.9em;
+      top: 8px;
+    }
+
+    strong { color: var(--navy); }
+
+    /* ── SECTION IMAGES ── */
+    .section-img {
+      width: 100%;
+      height: 300px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin: 0 0 32px 0;
+      display: block;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+    }
+
+    /* ── SERVICES GRID (on homepage O nás) ── */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+      margin-top: 32px;
+    }
+
+    .service-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-top: 4px solid var(--accent);
+      border-radius: 6px;
+      padding: 20px 18px;
+      text-decoration: none;
+      display: block;
+      transition: box-shadow 0.2s, transform 0.2s;
+      cursor: pointer;
+    }
+
+    .service-card:hover {
+      box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+      transform: translateY(-2px);
+    }
+
+    .service-card h3 {
+      font-size: 1rem;
+      color: var(--navy);
+      margin-bottom: 8px;
+    }
+
+    .service-card p {
+      font-size: 0.88rem;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+
+    /* ── CONTACT ── */
+    #kontakt {
+      background: var(--navy);
+      color: var(--white);
+    }
+
+    #kontakt h2 {
+      color: var(--white);
+      border-color: var(--accent);
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 32px;
+      margin-top: 24px;
+    }
+
+    .contact-block h3 {
+      font-size: 0.8rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 10px;
+    }
+
+    .contact-block p, .contact-block a {
+      font-size: 0.97rem;
+      color: rgba(255,255,255,0.85);
+      text-decoration: none;
+      line-height: 1.8;
+    }
+
+    .contact-block a:hover { color: var(--white); text-decoration: underline; }
+
+    .legal-note {
+      margin-top: 40px;
+      padding-top: 24px;
+      border-top: 1px solid rgba(255,255,255,0.15);
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.5);
+      line-height: 1.6;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: #111d2e;
+      color: rgba(255,255,255,0.4);
+      text-align: center;
+      font-size: 0.78rem;
+      padding: 18px 24px;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 768px) {
+      .hero h1 { font-size: 1.8rem; }
+      .nav-links a { font-size: 0.8rem; padding: 5px 7px; }
+      .nav-logo { font-size: 1rem; }
+    }
+
+    @media (max-width: 560px) {
+      .nav-inner { flex-direction: column; height: auto; padding: 10px 16px; gap: 6px; }
+      nav { position: static; }
+      .hero { margin-top: 0; }
+      section { scroll-margin-top: 0; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAVIGATION -->
+<nav>
+  <div class="nav-inner">
+    <a href="#top" class="nav-logo">
+      <img src="images/logo.png" alt="UNIT logo" />
+      UNIT spol. s r.o.
+    </a>
+    <ul class="nav-links">
+      <li><a href="#o-nas">O nás</a></li>
+      <li><a href="#energetika">Energetika</a></li>
+      <li><a href="#it-sluzby">IT služby</a></li>
+      <li><a href="#dotacni-poradenstvi">Dotace</a></li>
+      <li><a href="#odpadove-hospodarstvi">Odpady</a></li>
+      <li><a href="#zahranicni-projekty">Zahraniční projekty</a></li>
+      <li><a href="#kontakt">Kontakt</a></li>
+    </ul>
+  </div>
+</nav>
+
+<!-- HERO -->
+<div id="top" class="hero">
+  <h1>UNIT spol. s r.o.</h1>
+  <p>Komplexní řešení v oblasti energetiky, IT technologií, dotačního poradenství a odpadového hospodářství.</p>
+</div>
+
+<!-- O NÁS -->
+<section id="o-nas">
+  <div class="section-inner">
+    <h2>O nás</h2>
+    <img src="images/o-nas.jpg" alt="Praha" class="section-img" />
+    <p>Jsme tým odborníků, kteří spojují zkušenosti z oblasti energetiky, IT technologií, projektového řízení a dotačního poradenství. Naším cílem je přinášet moderní a funkční řešení, která propojují technické know-how, inovace a udržitelnost.</p>
+    <p>Věříme, že budoucnost patří těm, kdo umí technologie a energii využívat chytře – a právě tím se řídíme ve všech našich projektech.</p>
+    <p>Naše společnost vznikla z potřeby nabídnout klientům komplexní přístup. Nejen konzultaci nebo dílčí službu, ale <strong>celý proces od nápadu až po realizaci</strong> – od prvotní studie přes finanční zajištění až po implementaci moderních technologií.</p>
+    <p>Spolupracujeme s městy, firmami i veřejnými institucemi, kterým pomáháme orientovat se v náročném světě dotací, předpisů a technických standardů.</p>
+    <p>Naší filozofií je <strong>kvalita, otevřenost a dlouhodobé partnerství</strong>. V každém projektu vidíme příležitost posunout věci dopředu – ať už jde o chytré technologie, energetickou soběstačnost, nebo podporu inovací v evropském prostoru.</p>
+    <p>Tým tvoří odborníci s mnohaletými zkušenostmi z různých oblastí: energetických koncepcí, IT vývoje, ekonomických analýz, dotační správy i mezinárodní spolupráce. Díky propojení těchto světů dokážeme vytvářet řešení, která fungují v praxi a mají skutečný dopad.</p>
+    <p>Naše práce je založena na principech <strong>odpovědnosti, udržitelnosti a inovace</strong>. Chceme být partnerem, který vám rozumí – a pomůže vám posunout váš projekt i vizi o krok dál.</p>
+
+    <div class="services-grid">
+      <a href="#energetika" class="service-card">
+        <h3>Energetika</h3>
+        <p>Udržitelná infrastruktura, obnovitelné zdroje, bateriová úložiště a chytré hospodaření s energií.</p>
+      </a>
+      <a href="#it-sluzby" class="service-card">
+        <h3>IT služby</h3>
+        <p>Weby, aplikace a integrace umělé inteligence pro firmy, které chtějí automatizovat a růst.</p>
+      </a>
+      <a href="#dotacni-poradenstvi" class="service-card">
+        <h3>Dotační poradenství</h3>
+        <p>Financování z evropských i národních zdrojů, včetně administrace a kontroly.</p>
+      </a>
+      <a href="#zahranicni-projekty" class="service-card">
+        <h3>Zahraniční projekty</h3>
+        <p>Mezinárodní iniciativy jako Aid for Trade nebo Interreg Danube spojující regiony a přinášející konkrétní výsledky.</p>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ENERGETIKA -->
+<section id="energetika" class="section-alt">
+  <div class="section-inner">
+    <h2>Energetika</h2>
+    <img src="images/energetika.jpg" alt="Energetika" class="section-img" />
+    <p>Naše společnost se zaměřuje na komplexní řešení v oblasti energetiky – od strategického plánování, přes návrh projektů, až po jejich realizaci a následný provozní dohled. Pomáháme obcím, firmám i investorům orientovat se v dynamicky se měnícím energetickém prostředí a přecházet na udržitelná řešení.</p>
+    <p>Umíme zpracovat <strong>energetické koncepce, studie proveditelnosti a ekonomické analýzy</strong>, které klientům umožňují kvalifikovaně rozhodovat o investicích. Při návrhu projektů se zaměřujeme na obnovitelné zdroje energie – především fotovoltaiku, větrné elektrárny, biomasu a geotermální systémy. Využíváme moderní metody výpočtů a simulací, díky nimž dokážeme přesně určit návratnost a optimální výkon řešení.</p>
+    <p>Velkou pozornost věnujeme <strong>baterovým úložištím energie</strong>, která umožňují akumulovat přebytky z výroby a zvyšují stabilitu provozu. Tyto systémy pomáhají klientům snižovat náklady, zvyšovat soběstačnost a zajistit plynulý provoz i v případě výpadků sítě.</p>
+    <p>Dále se specializujeme na <strong>vodíkové technologie a dobíjecí stanice elektromobilů</strong>. Navrhujeme rozmístění a kapacitu stanic, optimalizujeme napojení na distribuční síť a zajišťujeme potřebné povolovací procesy. V současnosti se podílíme na přípravě projektů, které propojují energetickou efektivitu s rozvojem čisté mobility.</p>
+    <p>Zajišťujeme energetické audity, projektové řízení, monitoring a servis již realizovaných projektů. Naším cílem je, aby energetické řešení nebylo jen splněním povinnosti, ale <strong>dlouhodobě funkčním a ekonomicky přínosným nástrojem rozvoje</strong>.</p>
+  </div>
+</section>
+
+<!-- IT SLUŽBY -->
+<section id="it-sluzby">
+  <div class="section-inner">
+    <h2>IT služby</h2>
+    <img src="images/it-sluzby.jpg" alt="IT služby" class="section-img" />
+    <p>Technologie jsou jádrem našeho podnikání. Nabízíme komplexní IT řešení, která propojují efektivitu, bezpečnost a inovace. Naším cílem je, aby IT infrastruktura našich klientů fungovala spolehlivě, rychle a chytře.</p>
+    <p>Zaměřujeme se na <strong>tvorbu webových stránek, webových aplikací a datových portálů</strong>. Každý projekt navrhujeme individuálně podle potřeb klienta – s důrazem na moderní design, přehlednost a uživatelskou přívětivost. Umíme pracovat s platformami jako Framer, Webflow či WordPress, ale zároveň tvoříme vlastní řešení na míru v Pythonu, C++ a dalších jazycích.</p>
+    <p>Součástí našich služeb je také správa serverů, integrace API, implementace databází, automatizace firemních procesů a technická podpora.</p>
+    <p>Zvláštní pozornost věnujeme oblasti <strong>umělé inteligence (AI)</strong>. Pomáháme firmám zavádět AI automatizaci a AI roboty, kteří dokážou analyzovat data, komunikovat se zákazníky nebo provádět rutinní úkoly bez zásahu člověka. Implementujeme systémy založené na OpenAI, Azure AI nebo lokálních modelech, které zvyšují efektivitu a přesnost procesů.</p>
+    <p>Nabízíme také digitální transformaci firem, modernizaci IT prostředí, cloudová řešení, bezpečnostní audity a dlouhodobou podporu. Technologie vnímáme jako prostředek, který umožňuje růst – ne komplikaci.</p>
+    <p>Naším cílem je být vaším <strong>dlouhodobým IT partnerem</strong>, který rozumí nejen technologii, ale i vašemu podnikání.</p>
+  </div>
+</section>
+
+<!-- DOTAČNÍ PORADENSTVÍ -->
+<section id="dotacni-poradenstvi" class="section-alt">
+  <div class="section-inner">
+    <h2>Dotační poradenství</h2>
+    <img src="images/dotace.jpg" alt="Dotační poradenství" class="section-img" />
+    <p>Získat dotaci není jen o vyplnění formuláře. Je to komplexní proces, který vyžaduje znalost legislativy, ekonomických principů i praktickou zkušenost s projekty. Naše společnost nabízí <strong>kompletní dotační servis</strong> – od analýzy vhodných výzev až po úspěšné proplacení projektu.</p>
+    <p>Pomáháme firmám, městům i neziskovým organizacím identifikovat možnosti financování z národních i evropských zdrojů. Připravujeme žádosti, rozpočty, harmonogramy, přílohy a zajišťujeme komunikaci s poskytovatelem dotace.</p>
+    <p>Naši klienti nejčastěji využívají poradenství v oblastech:</p>
+    <ul>
+      <li><strong>Nová zelená úsporám</strong> – podpora energetických úspor, zateplení, výměna technologií.</li>
+      <li><strong>Solární panely a obnovitelné zdroje</strong> – příprava projektů, dokumentace, zajištění dotační podpory.</li>
+      <li><strong>Rozvoj obcí a firem</strong> – financování infrastruktury, veřejných služeb či digitalizace.</li>
+    </ul>
+    <p>Zajišťujeme také průběžný dohled nad projektem, přípravu podkladů pro kontroly, auditní zprávy a závěrečnou administraci. Klienta provázíme celým procesem až do úspěšného zakončení.</p>
+    <p>Díky mnohaletým zkušenostem víme, jak napsat žádost tak, aby byla úspěšná, a jak nastavit projekt tak, aby byl skutečně realizovatelný. <strong>Jsme partner, který pomáhá proměnit dotační příležitost v reálný výsledek.</strong></p>
+  </div>
+</section>
+
+<!-- ODPADOVÉ HOSPODÁŘSTVÍ -->
+<section id="odpadove-hospodarstvi">
+  <div class="section-inner">
+    <h2>Odpadové hospodářství</h2>
+    <img src="images/odpady.jpg" alt="Odpadové hospodářství" class="section-img" />
+    <p>Efektivní nakládání s odpady patří mezi klíčové výzvy moderní společnosti. Naše společnost se dlouhodobě zaměřuje na návrh, optimalizaci a implementaci systémů odpadového hospodářství, která propojují ekonomickou efektivitu, environmentální odpovědnost a legislativní soulad. Pomáháme městům, obcím i podnikům nastavit udržitelná řešení, která snižují množství odpadu, podporují recyklaci a přinášejí úspory jak finanční, tak materiálové.</p>
+    <p>Zvláštní důraz klademe na <strong>obalový odpad</strong>, který představuje významnou část celkového objemu komunálního i průmyslového odpadu. Navrhujeme strategie pro jeho sběr, třídění a další využití – od optimalizace svozových tras až po návrh zpětných odběrů a rozšířenou odpovědnost výrobců (EPR). Sledujeme aktuální vývoj legislativy v České republice i Evropské unii a pomáháme našim klientům být vždy o krok napřed.</p>
+    <p>V oblasti <strong>recyklace</strong> navrhujeme technologická i organizační opatření pro zvýšení míry materiálového využití. Spolupracujeme s recyklačními závody, průmyslovými podniky i výzkumnými organizacemi na zavádění inovativních postupů. Naším cílem je podporovat <strong>cirkulární ekonomiku</strong> – tedy návrat hodnotných surovin zpět do výrobního cyklu a minimalizaci množství odpadu končícího na skládkách nebo ve spalovnách.</p>
+    <p>Významnou součástí našich aktivit jsou také projekty v <strong>gumárenském průmyslu</strong>, kde se zaměřujeme na zpracování a recyklaci pryžových odpadů, zejména použitých pneumatik. Pomáháme partnerům hledat ekonomicky i ekologicky výhodné způsoby využití recyklované gumy – například pro výrobu stavebních materiálů, povrchů sportovišť nebo izolačních prvků.</p>
+    <p>Naše práce stojí na analýze dat, důkladném plánování a praktické zkušenosti z realizace. Každý projekt přizpůsobujeme specifickým podmínkám klienta – velikosti provozu, typu produkovaného odpadu i místním logistickým možnostem.</p>
+    <p>Odpadové hospodářství vnímáme jako součást širší strategie udržitelného rozvoje. Proto naše služby často propojujeme s oblastmi energetiky, městského plánování a smart řešení. <strong>Věříme, že odpady nejsou problémem, ale zdrojem</strong> – pokud s nimi dokážeme správně zacházet.</p>
+  </div>
+</section>
+
+<!-- ZAHRANIČNÍ PROJEKTY -->
+<section id="zahranicni-projekty" class="section-alt">
+  <div class="section-inner">
+    <h2>Zahraniční projekty</h2>
+    <img src="images/zahranicni-projekty.jpg" alt="Zahraniční projekty" class="section-img" />
+    <p>Aktivně se zapojujeme do mezinárodní spolupráce a realizujeme projekty přesahující hranice České republiky. Propojujeme regiony, sdílíme know-how a přispíváme ke konkrétním výsledkům v oblasti energetiky, rozvoje infrastruktury a udržitelnosti.</p>
+    <p>Naše mezinárodní aktivity zahrnují zejména účast v programech <strong>Aid for Trade</strong> a <strong>Interreg Danube</strong>. Tyto iniciativy umožňují přenášet osvědčené postupy mezi zeměmi, propojovat partnerské organizace a společně řešit výzvy, které přesahují možnosti jednotlivých států.</p>
+    <p>V rámci zahraničních projektů zajišťujeme:</p>
+    <ul>
+      <li>Projektové řízení a koordinaci mezinárodních partnerství</li>
+      <li>Přípravu projektových žádostí pro evropské a mezinárodní programy</li>
+      <li>Technické poradenství a přenos zkušeností</li>
+      <li>Monitoring, reporting a administraci projektů</li>
+    </ul>
+    <p>Díky zkušenostem z mezinárodního prostředí dokážeme našim klientům pomoci nejen na domácím trhu, ale i při vstupu do širšího evropského a globálního kontextu.</p>
+  </div>
+</section>
+
+<!-- KONTAKT -->
+<section id="kontakt">
+  <div class="section-inner">
+    <h2>Kontakt</h2>
+    <div class="contact-grid">
+      <div class="contact-block">
+        <h3>Adresa</h3>
+        <p>
+          UNIT spol. s r.o.<br />
+          Hradčanské nám. 60/12<br />
+          118 00 Praha 1
+        </p>
+      </div>
+      <div class="contact-block">
+        <h3>E-mail</h3>
+        <p><a href="mailto:unit.prague@gmail.com">unit.prague@gmail.com</a></p>
+      </div>
+      <div class="contact-block">
+        <h3>Identifikační údaje</h3>
+        <p>
+          IČ: 00257524<br />
+          DIČ: CZ00257524
+        </p>
+      </div>
+    </div>
+    <div class="legal-note">
+      Společnost UNIT spol. s r.o. je zapsána v obchodním rejstříku vedeném Městským soudem v Praze, oddíl C, vložka 430.
+    </div>
+  </div>
+</section>
+
+<footer>
+  &copy; 2025 UNIT spol. s r.o. &nbsp;|&nbsp; Všechna práva vyhrazena
+</footer>
+
+</body>
+</html>
